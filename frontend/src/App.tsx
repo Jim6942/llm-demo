@@ -13,6 +13,7 @@ type Doc = {
 }
 
 function App() {
+  const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -29,7 +30,7 @@ function App() {
     formData.append("file", file)
 
     try {
-      const res = await fetch('http://127.0.0.1:8000/upload-pdf', {
+      const res = await fetch(`${API_URL}/upload-pdf`, {
         method: 'POST',
         body: formData,
       })
@@ -102,7 +103,7 @@ function App() {
     const fullContext = documents.map(d => d.text).join("\n\n")
 
     try {
-      const res = await fetch('http://127.0.0.1:8000/chat', {
+      const res = await fetch(`${API_URL}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
