@@ -45,6 +45,7 @@ def health_check():
 
 @app.post("/upload-pdf")
 async def upload_pdf(file: UploadFile):
+    print(f"Filename received: {file.filename}")
     if file.content_type != "application/pdf":
         raise HTTPException(status_code=400, detail="File must be a PDF")
 
@@ -56,6 +57,7 @@ async def upload_pdf(file: UploadFile):
             text = page.extract_text()
             if text:
                 extracted_text += text + "\n"
+                print("Page extracted...")
 
         if not extracted_text.strip():
             return {"filename": file.filename, "text": "", "warning": "No text found in PDF"}
@@ -72,6 +74,7 @@ async def upload_pdf(file: UploadFile):
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
+    print("Chat endpoint hit")
     try:
         system_instruction = (
             "You are a helpful professional assistant helping a user draft documents. "
@@ -92,6 +95,7 @@ async def chat(request: ChatRequest):
         for msg in request.messages:
             api_messages.append({"role": msg.role, "content": msg.content})
 
+        print(f"Sending request with {len(api_messages)} messages")
         response = client.chat.completions.create(
             model="gpt-5-mini",
             messages=api_messages,

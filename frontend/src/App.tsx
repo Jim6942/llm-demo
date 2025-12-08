@@ -27,6 +27,7 @@ function App() {
 
   const uploadFile = async (file: File) => {
     const formData = new FormData()
+    console.log("Preparing upload for", file.name)
     formData.append("file", file)
 
     try {
@@ -101,8 +102,10 @@ function App() {
     setIsLoading(true)
 
     const fullContext = documents.map(d => d.text).join("\n\n")
+    console.log("Context length: ", fullContext.length)
 
     try {
+      console.log("Sending to api")
       const res = await fetch(`${API_URL}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
