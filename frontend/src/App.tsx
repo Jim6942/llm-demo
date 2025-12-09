@@ -141,7 +141,7 @@ function App() {
       <div className="main-content">
         <div className="hero">
           <h1>AI-powered drafting <br/> <span className="gradient-text">for your documents.</span></h1>
-          <p className="subtitle">Experimental prototype. Upload PDFs to analyze, summarize, or draft new content based on your knowledge.</p>
+          <p className="subtitle">Experimental prototype. Not an official Revax product.</p>
         </div>
 
         <div className="workspace-grid">
@@ -190,7 +190,7 @@ function App() {
               {messages.length === 0 && (
                  <div className="empty-chat-state">
                     <div className="ai-avatar">✨</div>
-                    <p>Ready. Upload documents to the left to give me context.</p>
+                    <p>Ready. Upload documents to the left to give context.</p>
                  </div>
               )}
 
